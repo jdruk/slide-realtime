@@ -7,16 +7,15 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
-
-
-        <title></title>
+        <title>Slider realtime</title>
     </head>
     <body >
-        <div class="center-align">
-            <button id="next" type="button" name="button" class="btn">Avançar</button>
-            <button id="prev" type="button" name="button" class="btn">Voltar</button>
-        </div>
+
         <div class="slider" id="main">
+            <div class="center-align">
+                <button id="next" type="button" name="button" class="btn">Avançar</button>
+                <button id="prev" type="button" name="button" class="btn">Voltar</button>
+            </div>
           <ul class="slides">
             <li>
               <img src="https://lorempixel.com/580/250/nature/1"> <!-- random image -->
@@ -73,10 +72,10 @@
                 socket.emit('action','prev');
             });
 
-            function action_for(action){
+            function action_for(message){
                 var elem = document.getElementById('main');
                 var instance = M.Slider.getInstance(elem);
-                if (action == 'next') {
+                if (message == 'next') {
                     instance.next();
                 } else {
                     instance.prev();

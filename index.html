@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+
+
+        <title></title>
+    </head>
+    <body >
+        <div class="center-align">
+            <button id="next" type="button" name="button" class="btn">Avançar</button>
+            <button id="prev" type="button" name="button" class="btn">Voltar</button>
+        </div>
+        <div class="slider" id="main">
+          <ul class="slides">
+            <li>
+              <img src="https://lorempixel.com/580/250/nature/1"> <!-- random image -->
+              <div class="caption center-align">
+                <h3>This is our big Tagline!</h3>
+                <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+              </div>
+            </li>
+            <li>
+              <img src="https://lorempixel.com/580/250/nature/2"> <!-- random image -->
+              <div class="caption left-align">
+                <h3>Left Aligned Caption</h3>
+                <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+              </div>
+            </li>
+            <li>
+              <img src="https://lorempixel.com/580/250/nature/3"> <!-- random image -->
+              <div class="caption right-align">
+                <h3>Right Aligned Caption</h3>
+                <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+              </div>
+            </li>
+            <li>
+              <img src="https://lorempixel.com/580/250/nature/4"> <!-- random image -->
+              <div class="caption center-align">
+                <h3>This is our big Tagline!</h3>
+                <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var elems = document.querySelectorAll('.slider');
+                var height = window.innerHeight;
+                options =  {
+                    'height': height,
+                    'indicators': false,
+                    'interval': 6000000000
+                };
+                var instances = M.Slider.init(elems,options);
+            });
+
+            const socket = io();
+            document.getElementById("next").addEventListener("click", function(){
+                socket.emit('action','next');
+            });
+            document.getElementById("prev").addEventListener("click", function(){
+                socket.emit('action','prev');
+            });
+
+            function action_for(action){
+                var elem = document.getElementById('main');
+                var instance = M.Slider.getInstance(elem);
+                if (action == 'next') {
+                    instance.next();
+                } else {
+                    instance.prev();
+                }
+            }
+
+            socket.on("action",function(message){
+                action_for(message);
+            });
+        </script>
+    </body>
+
+</html>

@@ -8,38 +8,54 @@
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
         <title>Slider realtime</title>
+        <style >
+            body {
+                position: relative;
+            }
+
+            .main{
+                position: absolute;
+                bottom: 10%;
+                right: 50%;
+                transform: translate(50%, 50%);
+                z-index: 200;
+                height: 100px;
+                width: 300px;
+            }
+        </style>
     </head>
     <body >
-
-        <div class="slider" id="main">
+        <div class="main">
             <div class="center-align">
                 <button id="next" type="button" name="button" class="btn">Avançar</button>
                 <button id="prev" type="button" name="button" class="btn">Voltar</button>
             </div>
+        </div>
+        <div class="slider" id="main">
           <ul class="slides">
             <li>
-              <img src="https://lorempixel.com/580/250/nature/1"> <!-- random image -->
+              <img src="http://www.hddesktopbackgrounds.us/backgrounds-images/1920x1080/2iyzb-wallpapers-173812926-1920x1080.jpg"> <!-- random image -->
               <div class="caption center-align">
                 <h3>This is our big Tagline!</h3>
                 <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
               </div>
             </li>
             <li>
-              <img src="https://lorempixel.com/580/250/nature/2"> <!-- random image -->
+              <img src="http://www.hanedanrpg.com/photos/hanedanrpg/11/50082.jpg"> <!-- random image -->
               <div class="caption left-align">
                 <h3>Left Aligned Caption</h3>
                 <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
               </div>
             </li>
             <li>
-              <img src="https://lorempixel.com/580/250/nature/3"> <!-- random image -->
+              <img src="http://kb4images.com/images/nature-background-images/37209917-nature-background-images.jpg"> <!-- random image -->
               <div class="caption right-align">
                 <h3>Right Aligned Caption</h3>
                 <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
               </div>
             </li>
             <li>
-              <img src="https://lorempixel.com/580/250/nature/4"> <!-- random image -->
+              <img src="https://i.pinimg.com/originals/c1/cc/c8/c1ccc8e774e2122a93c55c715d6292ab.jpg"> <!-- random image -->
               <div class="caption center-align">
                 <h3>This is our big Tagline!</h3>
                 <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
@@ -72,13 +88,18 @@
                 socket.emit('action','prev');
             });
 
-            function action_for(message){
-                var elem = document.getElementById('main');
+            function instance(element){
+                var elem = document.getElementById(element);
                 var instance = M.Slider.getInstance(elem);
+                return instance;
+            }
+
+            function action_for(message){
+
                 if (message == 'next') {
-                    instance.next();
+                    instance('main').next();
                 } else {
-                    instance.prev();
+                    instance('main').prev();
                 }
             }
 

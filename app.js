@@ -15,7 +15,6 @@ function action(msg){
 }
 
 io.on('connection', function(socket){
-    console.log('a user connected');
     socket.on("action", function(msg){
         action(msg);
     });
